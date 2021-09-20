@@ -10,7 +10,7 @@ This code is a numerical integration of these equations.
 
 %% THE PARAMETERS
 X0 = -8;
-Y0 = -8;
+Y0 = 8;
 Z0 = 27;
 beta = 8/3;
 rho = 50;
@@ -96,7 +96,7 @@ subplot(2,3,3);
 p1 = plot3(ys(1,:), ys(2,:), ys(3,:), 'LineWidth', LW);
 hold on;
 scatter3([ys(1,end)], [ys(2,end)], [ys(3,end)], 'Filled');
-sol2 = ode23s(@(t,y) odefunc(t,y,beta,rho,sigma), tspan, [X0+1e-15,Y0,Z0], options); xs2 = sol2.x; ys2 = sol2.y;
+sol2 = ode23s(@(t,y) odefunc(t,y,beta,rho,sigma), tspan, [X0,Y0+1e-15,Z0], options); xs2 = sol2.x; ys2 = sol2.y;
 p2 = plot3(ys2(1,:), ys2(2,:), ys2(3,:), 'LineWidth', LW);
 scatter3([ys2(1,end)], [ys2(2,end)], [ys2(3,end)], 'Filled');
 scatter3([X0], [Y0], [Z0], 'Filled');
@@ -113,9 +113,6 @@ ax.FontSize = FS;
 
 % PLOTTING DIFFERENCES OF SOLUTIONS
 subplot(2,3,4);
-sol2 = ode23s(@(t,y) odefunc(t,y,beta,rho,sigma), tspan, [X0+1e-15,Y0,Z0], options);
-sol = ode23s(@(t,y) odefunc(t,y,beta,rho,sigma), tspan, y0, options);
-xs = sol.x; ys = sol.y;
 Nmax = 10000;
 xs0 = linspace(0, tend, Nmax);
 ys1 = deval(sol, xs0); ys2 = deval(sol2, xs0);
